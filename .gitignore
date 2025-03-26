@@ -10,7 +10,31 @@ modal_outputs/
 # Ignore Python bytecode files
 *.pyc
 
-# Ignore GaussianObject submodule directory
-GaussianObject/
+# Python compiled files
+*.pyc
+__pycache__
+
+# VSCode directory
+.vscode
+
+# Build, distribution, and egg-info folders
+output
+build
+*.egg-info
+dist
+
+# Temporary and cache files
+.cache
+
+# Ignore model checkpoint and trained weights files
+v1-5-pruned.ckpt
+*.pth
+
+# Ignore submodules folder if not needed
+GaussianObject/submodules/
+
+# Ignore specific directories
+GaussianObject/data/
+GaussianObject/models/
 
 
