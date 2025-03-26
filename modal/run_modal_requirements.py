@@ -6,11 +6,8 @@ import sys
 # Reference your volume
 project_volume = modal.Volume.from_name("gaussianobjectvolume")
 
-# Create a Modal Secret for Hugging Face token
-from modal import Secret
-
-# Replace 'YOUR_HF_TOKEN' with your actual Hugging Face token
-huggingface_secret = modal.Secret.from_env("HUGGINGFACE_TOKEN")  # This fetches the token from the environment
+# Define the Modal app with secrets
+huggingface_secret = modal.Secret.from_name("my-huggingface-secret")  # Define the secret for Hugging Face
 
 # Image
 def gaussian_image():
@@ -72,7 +69,12 @@ def gaussian_image():
 app = modal.App("gaussian_object", secrets=[huggingface_secret])
 
 # Function to execute your main logic
-@app.function(volumes={"/my_vol": project_volume}, gpu="A100", timeout=10000, image=gaussian_image())
+@app.function(volumes={"/my_vol": project_volume},
+              gpu="A100",
+              timeout=10000,
+              secrets=[modal.Secret.from_name("my-huggingface-secret")],
+              image=gaussian_image())
+
 def main_function():
     try:
         # Define the submodules paths in the volume

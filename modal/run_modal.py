@@ -4,7 +4,9 @@ import subprocess
 
 # Reference your volume and secrets
 project_volume = modal.Volume.from_name("gaussianobjectvolume")
-huggingface_secret = modal.Secret.from_env("HUGGINGFACE_TOKEN")  # This fetches the token from the environment
+
+# Define the Modal app with secrets
+huggingface_secret = modal.Secret.from_name("my-huggingface-secret")  # Define the secret for Hugging Face
 
 # Define the Modal app with secrets
 app = modal.App("gaussian_object", secrets=[huggingface_secret])
@@ -48,7 +50,13 @@ def gauss_image():
     return image
 
 # Function to check imports
-@app.function(volumes={"/my_vol": project_volume}, gpu="A100", timeout=10000, image=gauss_image())
+@app.function(volumes={"/my_vol": project_volume},
+              gpu="A100",
+              timeout=10000,
+              image=gauss_image(),
+              secrets=[modal.Secret.from_name("my-huggingface-secret")],
+              )
+
 def main_function():
     # Attempt to import each submodule and print results
     submodules = [
