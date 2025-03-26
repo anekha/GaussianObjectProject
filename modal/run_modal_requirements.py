@@ -10,7 +10,7 @@ project_volume = modal.Volume.from_name("gaussianobjectvolume")
 from modal import Secret
 
 # Replace 'YOUR_HF_TOKEN' with your actual Hugging Face token
-huggingface_secret = Secret.from_dict({"HUGGINGFACE_TOKEN": "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"})
+huggingface_secret = modal.Secret.from_env("HUGGINGFACE_TOKEN")  # This fetches the token from the environment
 
 # Image
 def gaussian_image():

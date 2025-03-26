@@ -4,7 +4,7 @@ import subprocess
 
 # Reference your volume and secrets
 project_volume = modal.Volume.from_name("gaussianobjectvolume")
-huggingface_secret = modal.Secret.from_dict({"HUGGINGFACE_TOKEN": "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"})
+huggingface_secret = modal.Secret.from_env("HUGGINGFACE_TOKEN")  # This fetches the token from the environment
 
 # Define the Modal app with secrets
 app = modal.App("gaussian_object", secrets=[huggingface_secret])
