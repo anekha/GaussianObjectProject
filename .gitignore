@@ -1,0 +1,16 @@
+# Ignore output folder
+modal_outputs/
+
+# Ignore .env files (sensitive environment variables)
+.env
+
+# Ignore macOS-specific files
+.DS_Store
+
+# Ignore Python bytecode files
+*.pyc
+
+# Ignore GaussianObject submodule directory
+GaussianObject/
+
+
